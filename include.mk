@@ -53,10 +53,10 @@ ifndef TARGETOS
   TARGETOS := $(shell uname -s)
 endif
 
-#	Local Linux install (phast and clapack sister dirs to hal/)
+#	Local Linux install (if PHAST or CLAPACKPATH unset, assume phast and clapack sister dirs to hal/)
 #	(note CLAPACKPATH not needed in Mac)
-	PHAST=../../phast
-	CLAPACKPATH=../../clapack
+	PHAST ?= ../../phast
+	CLAPACKPATH ?= ../../clapack
 
 #	Melissa's version of the above
 #	PHAST=/home/mt269/phast
@@ -67,7 +67,7 @@ ifeq ($(TARGETOS), Darwin)
 	phyloPlibs += -L${PHAST}/lib -lphast -lc
 else
 	F2CPATH=${CLAPACKPATH}/F2CLIBS
-	phyloPcppflags += -DENABLE_PHYLOP -I${PHAST}/include -I${PHAST}/src/lib/pcre -I${CLAPACKPATH}/INCLUDE -I${F2CPATH}
+	phyloPcppflags += -DENABLE_PHYLOP -I${PHAST}/include -I${PHAST}/src/lib/pcre -I${CLAPACKPATH}/INCLUDE -I${F2CPATH} -fpermissive
 	phyloPlibs += -L${PHAST}/lib -lphast -L${CLAPACKPATH} -L${F2CPATH} -llapack -ltmg -lblaswr -lf2c 
 endif
 

@@ -1,8 +1,8 @@
 rootPath = ../
 include ../include.mk
 
-phastCflags = -I../../phast/include -I../../clapack/INCLUDE -I../../phast/src/lib/pcre
-phastLinkflags = ../../phast/lib/libphast.a ../../phast/lib/liblapack.a ../../phast/lib/libblaswr.a ../../clapack/F2CLIBS/libf2c.a
+phastCflags = -I${PHAST}/include -I${CLAPACKPATH}/INCLUDE -I${PHAST}/src/lib/pcre -fpermissive
+phastLinkflags = ${PHAST}/lib/libphast.a ${PHAST}/lib/liblapack.a ${PHAST}/lib/libblaswr.a ${CLAPACKPATH}/F2CLIBS/libf2c.a
 libHeaders = $(wildcard inc/*.h )
 libTestsCommon = ${rootPath}/api/tests/halAlignmentTest.cpp
 libTestsCommonHeaders = ${rootPath}/api/tests/halAlignmentTest.h ${rootPath}/api/tests/allTests.h
