@@ -441,6 +441,7 @@ extern "C" hal_int_t halGetMAF(FILE* outFile,
                                char* tChrom,
                                hal_int_t tStart, 
                                hal_int_t tEnd,
+                               int maxRefGap,
                                int doDupes,
                                char **errStr)
 {
@@ -486,6 +487,8 @@ extern "C" hal_int_t halGetMAF(FILE* outFile,
     MafExport mafExport;
     mafExport.setNoDupes(doDupes == 0);
     mafExport.setUcscNames(true);
+    mafExport.setMaxRefGap(hal_size_t(maxRefGap));
+
     mafExport.convertSegmentedSequence(mafBuffer, alignment, tGenome, 
                                        absStart, 1 + absEnd - absStart,
                                        qGenomeSet);
@@ -574,7 +577,6 @@ extern "C" struct hal_species_t *halGetSpecies(int halHandle, char **errStr)
         }
         prev = cur;
         
-        alignment->closeGenome(genome);
         vector<string> childNames = alignment->getChildNames(name);
         for (size_t i = 0; i < childNames.size(); ++i)
         {
